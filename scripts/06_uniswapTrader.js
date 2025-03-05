@@ -5,14 +5,20 @@ const SwapRouterABI = require('@uniswap/v3-periphery/artifacts/contracts/interfa
 const ERC20ABI = require('../ERC20.json'); 
 const { getPoolImmutables, getPoolState } = require('./helpers')
 
+const ownerPrivateKey = process.env.PRIVATE_KEY;
+const signer2Privatekey = process.env.PRIVATE_KEY;
+const provider = new ethers.providers.JsonRpcProvider(process.env.RPC_URL);
+const owner = new ethers.Wallet(ownerPrivateKey, provider);
+const signer2 = new ethers.Wallet(signer2Privatekey, provider);
+
 async function main() {
     // Use Hardhat's provider and signers
-    const [owner, signer2] = await ethers.getSigners();
-    const provider = waffle.provider;
+    //const [owner, signer2] = await ethers.getSigners();
+    //const provider = waffle.provider;
 
     // Example addresses, replace these with your local Hardhat deployed addresses
-    const poolAddress = '0x1FA8DDa81477A5b6FA1b2e149e93ed9C7928992F'; // Your local Uniswap Pool address
-    const swapRouterAddress = '0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0'; // Your local Uniswap SwapRouter address
+    const poolAddress = '0x79A1c85CF3036ECfa46b53eD67580c9F60Cf0244'; // Your local Uniswap Pool address
+    const swapRouterAddress = '0x9C4a65D1cf0acc5CaA7643413A134AEE0C5066cC'; // Your local Uniswap SwapRouter address
 
     // Initialize contracts with the local signer
     const poolContract = new ethers.Contract(poolAddress, IUniswapV3PoolABI, provider);
@@ -22,12 +28,12 @@ async function main() {
     const name0 = 'USDT';
     const symbol0 = 'USDT';
     const decimals0 = 18;
-    const address0 = '0x0165878A594ca255338adfa4d48449f69242Eb8F';
+    const address0 = '0x45077109130e7F750bd5a4BC8ad94F859f6CA745';
 
     const name1 = 'USDC';
     const symbol1 = 'USDC';
     const decimals1 = 18;
-    const address1 = '0xa513E6E4b8f2a923D98304ec87F64353C4D5C853'; 
+    const address1 = '0xbE61c8194d4C28a28356aAF0cC8A56dF5cB2aEbb'; 
 
     // Define the swap parameters
     const inputAmount = ethers.utils.parseUnits("1", decimals0);
